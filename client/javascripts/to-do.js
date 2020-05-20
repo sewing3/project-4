@@ -1,6 +1,11 @@
 //jshint esversion: 6
 
 let controller = function() {
+  //console.log(localStorage.getItem("commentsList"))
+  //load comments from local storage when page loads
+  if (localStorage.getItem("commentsList")) {
+    $(".comments").html(localStorage.getItem("commentsList"));
+  }
 
   let addCommentFromInputBox = function() {
     //Semmy uses "$" to name variables that will contain jQuery objects
@@ -12,6 +17,10 @@ let controller = function() {
       $(".comments").append($new_comment);
       //$new_comment.fadeIn();
       $(".comment-input input").val("");
+
+      //store list of paragroph elements
+      localStorage.setItem("commentsList", $(".comments").html());
+      console.log(localStorage.getItem("commentsList"));
     }
   };
 
@@ -26,4 +35,16 @@ let controller = function() {
   });
 };
 
-$(document).ready(controller);
+let deleteHandler = () => {
+  console.log("dH");
+  localStorage.removeItem("commentsList");
+  window.location.reload();
+};
+
+$(document).ready(() => {
+  console.log("ready");
+  //select the delete button
+  let buttonElem = document.querySelectorAll("button")[1];
+  buttonElem.addEventListener("click", deleteHandler);
+  controller();
+});
