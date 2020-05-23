@@ -52,7 +52,7 @@ class Dog extends Animal {
     this.weight = weight;
     this.barkNoise = barkNoise;
   }
-  // write bark method
+  // inherited method
   bark() {
     return `${this.barkNoise} ${this.barkNoise}!`;
   }
